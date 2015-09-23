@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+	<head>
+
+		<meta charset="utf-8">
+		<title>Urthecast API Demonstration</title>
+
+        <meta name="description" content="This presentation is a demonstration of the Urthecast APIs. All examples are live API examples.">
+        <meta name="author" content="Alex Bain <alex@urthecast.com>">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <!-- Styles -->
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css" />
+		<link rel="stylesheet" href="css/demo.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	</head>
+	<body>
+
+        <div id="map" class="hidden"></div>
+        <div id="sat-imagery" class="hidden"></div>
+        <div class="reveal">
+
+            <!-- Slides -->
+            <div class="slides">
+                <section>
+                    <h1>Urthecast APIs</h1>
+                    <p>Overview and Demos</p>
+                </section>
+
+                <section>
+                    <h2>Alex Bain</h2>
+                    <p>Senior Software Architect</p>
+                    <p>alex@urthecast.com</p>
+                </section>
+
+                <section>
+                    <h2>Overview</h2>
+                    <p class="fragment">Urthecast APIs enable developers to build custom geospatial applications</p>
+                    <p class="fragment">Foundational layer for apps - internal and external</p>
+                </section>
+
+                <section>
+                    <h2>Open Source</h2>
+                    <p class="fragment">Urthecast APIs adhere to open standards</p>
+                    <p class="fragment">Our APIs are built with open source software</p>
+                </section>
+
+                <section>
+                    <h2>Launch APIs</h2>
+                    <p class="fragment">Archive</p>
+                    <p class="fragment">Areas of Interest</p>
+                    <p class="fragment">Events</p>
+                    <p class="fragment">Satellite Tracker</p>
+                    <p class="fragment">Map Tile Service</p>
+                </section>
+
+                <!-- Give user chance to enter key/secret.  -->
+                <section>
+                    <h2>API Key and Secret</h2>
+                    <p>Before we begin, need to add an API key and secret</p>
+                    <div id="api-key-secret-form">
+                        <p><input type="text" id="api-key" placeholder="API key"></p>
+                        <p><input type="text" id="api-secret" placeholder="API secret"></p>
+                        <p><button id="api-key-and-secret-save">Save</button></p>
+                    </div>
+                    <div id="api-key-secret-form-success" class="hidden">
+                        <p>Alright, let's begin!</p>
+                    </div>
+                </section>
+
+                <!-- Archive API Examples -->
+                <section>
+                    <section>
+                        <h2>Archive API</h2>
+                        <p class="fragment">Searchable archive of all imagery on platform</p>
+                        <p class="fragment">Multiple sensors - Theia, Landsat-8 on launch</p>
+                        <p class="fragment">Filter by: <span class="fragment">satellite,</span> <span class="fragment">sensor,</span> <span class="fragment">cloud coverage,</span> <span class="fragment">sun elevation angle,</span> <span class="fragment">area of interest,</span> <span class="fragment">season,</span> <span class="fragment"> and more</span></p>
+                        <p class="fragment">Bonus: Map Tile Service requests use these same Archive filters</p>
+                    </section>
+                    <section>
+                        <h1>Examples</h1>
+                    </section>
+                    <section>
+                        <div class="fragment">
+                            <a href="#" id="how-many-scenes">How many scenes do we have in the catalog, right now?</a>
+                            <p id="how-many-scenes-results">&nbsp;</p>
+                            <pre id="how-many-scenes-url" class="fragment code-block"></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="fragment">
+                            <a href="#" id="how-many-theia-scenes">How many Theia scenes do we have in the catalog?</a>
+                            <p id="how-many-theia-scenes-results">&nbsp;</p>
+                            <pre id="how-many-theia-scenes-url" class="fragment code-block"></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="fragment">
+                            <a href="#" id="how-many-theia-july-scenes">How many Theia scenes do we have from July 2015?</a>
+                            <p id="how-many-theia-july-scenes-results">&nbsp;</p>
+                            <pre id="how-many-theia-july-scenes-url" class="fragment code-block"></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="fragment">
+                            <a href="#" id="how-many-landsat-june-scenes">Landsat8 from June 2015 with <= 10% cloud coverage?</a>
+                            <p id="how-many-landsat-june-scenes-results">&nbsp;</p>
+                            <pre id="how-many-landsat-june-scenes-url" class="fragment code-block"></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="fragment">
+                            <a href="#" id="most-recent-theia-scene">When was the most recent Theia scene acquired?</a>
+                            <p id="most-recent-theia-scene-results">&nbsp;</p>
+                            <pre id="most-recent-theia-scene-url" class="fragment code-block code-block--big"></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="fragment">
+                            <a href="#" id="most-recent-landsat-scene">When was the most recent Landsat8 scene acquired?</a>
+                            <p id="most-recent-landsat-scene-results">&nbsp;</p>
+                            <pre id="most-recent-landsat-scene-url" class="fragment code-block code-block--big"></pre>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- Areas of Interest (AOI) examples -->
+                <section>
+                    <section>
+                        <h2>Areas of Interest</h2>
+                        <p class="fragment">Monitor areas of the planet</p>
+                        <p class="fragment">Persistent data flow</p>
+                        <p class="fragment">Use an AOI to filter Archive / Satellite Tracker</p>
+                        <p class="fragment">Track events happening within your AOI</p>
+                    </section>
+                    <section>
+                        <h1>Examples</h1>
+                    </section>
+                    <section>
+                        <h2>Create an SF AOI</h2>
+                        <p>GeoJSON:</p>
+                        <pre id="sf-aoi">
+{"name":"San Francisco","geometry":{"type":"Polygon","coordinates":[[[-122.51747131347655,37.71261539271678],[-122.51747131347655,37.82036164330873],[-122.35507965087889,37.82036164330873],[-122.35507965087889,37.71261539271678],[-122.51747131347655,37.71261539271678]]]}}
+                        </pre>
+                        <p><a href="#" id="create-sf-aoi">Create AOI</a></p>
+                        <p id="create-sf-aoi-response-name">&nbsp;</p>
+                        <p id="create-sf-aoi-response-id">&nbsp;</p>
+                    </section>
+                    <section>
+                        <pre id="create-sf-aoi-response-url" class="code-block"></pre>
+                    </section>
+                    <section>
+                        <div class="fragment">
+                            <h2>Areas of Interest + Archive</h2>
+                            <p><a href="#" id="catalog-filter-aoi">How many scenes intersect with our AOI?</a></p>
+                            <p id="catalog-filter-aoi-response">&nbsp;</p>
+                            <pre id="catalog-filter-aoi-url" class="code-block code-block--big"></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="fragment">
+                            <h2>AOI + Satellite Tracker</h2>
+                            <p><a href="#" id="sat-tracker-forecast-aoi">When is the next capture opportunity from Theia?</a></p>
+                            <p id="sat-tracker-forecast-aoi-response">&nbsp;</p>
+                            <pre id="sat-tracker-forecast-aoi-url" class="code-block code-block--big"></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="">
+                            <p><a href="#" id="sat-tracker-forecast-aoi-landsat">Next capture opportunity from Landsat-8?</a></p>
+                            <p id="sat-tracker-forecast-aoi-response-landsat">&nbsp;</p>
+                            <pre id="sat-tracker-forecast-aoi-url-landsat" class="code-block code-block--big"></pre>
+                        </div>
+                    </section>
+
+                </section>
+
+                <!-- Event Stream Examples -->
+                <section>
+                    <section>
+                        <h2>Event Streams</h2>
+                        <p class="fragment">Tracking activity within your AOI</p>
+                        <p class="fragment">Stream of events happening on the platform</p>
+                        <p class="fragment">Launch event type: New imagery available</p>
+                        <p class="fragment">(more to come: <span class="fragment">AIS,</span> <span class="fragment">earthquakes,</span> <span class="fragment">fires, </span> <span class="fragment">deforestation</span>)</p>
+                    </section>
+                    <section>
+                        <h1>Examples</h1>
+                    </section>
+                    <section>
+                        <p><a href="#" id="event-stream">What are the most recent events on the Urthecast platform?</a></p>
+                        <pre id="event-stream-results" class="code-block code-block--big"></pre>
+                    </section>
+                    <section>
+                        <p><a href="#" id="event-stream-aoi">What are the most recent events for our San Francisco AOI?</a></p>
+                        <pre id="event-stream-aoi-results" class="code-block code-block--big"></pre>
+                    </section>
+                </section>
+
+                <!-- Satellite Tracker Examples -->
+                <section>
+                    <section>
+                        <h2>Satellite Tracker</h2>
+                        <p class="fragment">Query past, present, predicted position of satellites</p>
+                        <p class="fragment">Access TLE data for all tracked satellites</p>
+                        <p class="fragment">Forecasts - see capture opportunities for all sensors historically or up to 14 days in the future</p>
+                    </section>
+                    <section>
+                        <h1>Examples</h1>
+                    </section>
+                    <section>
+                        <p><a href="#" id="iss-current-location">Where is the ISS, right now?</a></p>
+                        <pre id="iss-current-location-api-request" class="code-block"></pre>
+                        <div style="height: 450px; background: #000;" id="iss-current-location-results"></div>
+                    </section>
+                    <section>
+                        <p><a href="#" id="landsat8-current-location">Where is Landsat8?</a></p>
+                        <pre id="landsat8-current-location-api-request" class="code-block"></pre>
+                        <div style="height: 450px; background: #000;" id="landsat8-current-location-results"></div>
+                    </section>
+                    <section>
+                        <h2>TLEs - Two Line Element sets</h2>
+                    </section>
+                    <section>
+                        <p><a href="#" id="iss-tles">Get latest ISS TLE</a></p>
+                        <pre class="code-block" id="iss-tles-result"></pre>
+                    </section>
+                    <section>
+                        <p><a href="#" id="landsat8-tles">Get latest Landsat8 TLE</a></p>
+                        <pre class="code-block" id="landsat8-tles-result"></pre>
+                    </section>
+                </section>
+
+                <!-- Map Tile Examples -->
+                <section>
+                    <h2>Map Tile Service</h2>
+                    <p class="fragment">Normalized map tiles from all imagery in the archive</p>
+                    <p class="fragment">Filter the imagery being shown with Archive queries</p>
+                    <p class="fragment">Multiple renderers to showcase data behind pixels</p>
+                    <p class="fragment">Launching with: True RGB, NDVI, False color NIR, NDWI, EVI</p>
+                </section>
+
+                <!-- Demo 1 - renderers -->
+                <section>
+                    <h2>Demo 1:</h2>
+                    <p>Map Tile Service Renderers</p>
+                </section>
+
+                <section id="map-demo-a-1" class="map-demo-slide">
+                    <!-- Map is loaded here, text would be overlaid -->
+                    <p>True RGB</p>
+                </section>
+
+                <section id="map-demo-a-2" class="map-demo-slide">
+                    <!-- Map is loaded here, text would be overlaid -->
+                    <p>NDVI</p>
+                </section>
+
+                <section id="map-demo-a-3" class="map-demo-slide">
+                    <!-- Map is loaded here, text would be overlaid -->
+                    <p>False color NIR</p>
+                </section>
+
+                <section id="map-demo-a-4" class="map-demo-slide">
+                    <!-- Map is loaded here, text would be overlaid -->
+                    <p>NDWI</p>
+                </section>
+
+                <section id="map-demo-a-5" class="map-demo-slide">
+                    <!-- Map is loaded here, text would be overlaid -->
+                    <p>EVI</p>
+                </section>
+
+                <!-- Demo 2 - change over time, renderers -->
+                <section>
+                    <h2>Demo 2</h2>
+                    <p>Comparing change over time</p>
+                </section>
+
+                <section id="map-demo-b-1">
+                    <section class="map-demo-b map-demo-slide" data-style="rgb">
+                        <p>June 2015 - True RGB</p>
+                    </section>
+
+                    <section class="map-demo-b map-demo-slide" data-style="ndvi">
+                        <p>June 2015 - NDVI</p>
+                    </section>
+
+                    <section class="map-demo-b map-demo-slide" data-style="false-color-nir">
+                        <p>June 2015 - False Color NIR</p>
+                    </section>
+
+                    <section class="map-demo-b map-demo-slide" data-style="ndwi">
+                        <p>June 2015 - NDWI</p>
+                    </section>
+
+                    <section class="map-demo-b map-demo-slide" data-style="evi">
+                        <p>June 2015 - EVI</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section class="map-demo-b-2 map-demo-slide" data-style="rgb">
+                        <p>July 2015 - True RGB</p>
+                    </section>
+
+                    <section class="map-demo-b-2 map-demo-slide" data-style="ndvi">
+                        <p>July 2015 - NDVI</p>
+                    </section>
+
+                    <section class="map-demo-b-2 map-demo-slide" data-style="false-color-nir">
+                        <p>July 2015 - False Color NIR</p>
+                    </section>
+
+                    <section class="map-demo-b-2 map-demo-slide" data-style="ndwi">
+                        <p>July 2015 - NDWI</p>
+                    </section>
+
+                    <section class="map-demo-b-2 map-demo-slide" data-style="evi">
+                        <p>July 2015 - EVI</p>
+                    </section>
+                </section>
+
+                <!-- Demo 3 - drought - shasta -->
+                <section>
+                    <h2>Demo 3</h2>
+                    <p>Application: Drought</p>
+                    <p>Lake Shasta, CA</p>
+                </section>
+
+                <section id="map-demo-c-1">
+                    <section class="map-demo-c map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-01-01"
+                        data-acquired-lte="2015-02-28">
+                        <p>Feb 2015</p>
+                    </section>
+
+                    <section class="map-demo-c map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-09-01"
+                        data-acquired-lte="2015-09-30">
+                        <p>September 2015</p>
+                    </section>
+                </section>
+
+                <!-- Demo 3 - drought - hetch hetchy -->
+                <section>
+                    <p>Application: Drought</p>
+                    <p>Hetch Hetchy Reservoir</p>
+                    <p>(where SF tap water comes from)</p>
+                </section>
+
+                <section id="map-demo-d-1">
+                    <section class="map-demo-d map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-01-01"
+                        data-acquired-lte="2015-02-28">
+                        <p>Feb 2015</p>
+                    </section>
+
+                    <section class="map-demo-d map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-03-01"
+                        data-acquired-lte="2015-03-31">
+                        <p>March 2015</p>
+                    </section>
+
+                    <section class="map-demo-d map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-04-01"
+                        data-acquired-lte="2015-04-30">
+                        <p>April 2015</p>
+                    </section>
+
+                    <section class="map-demo-d map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-05-01"
+                        data-acquired-lte="2015-05-30">
+                        <p>May 2015</p>
+                    </section>
+
+                    <section class="map-demo-d map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-06-01"
+                        data-acquired-lte="2015-06-30">
+                        <p>June 2015</p>
+                    </section>
+
+                    <section class="map-demo-d map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-07-01"
+                        data-acquired-lte="2015-07-30">
+                        <p>July 2015</p>
+                    </section>
+
+                    <section class="map-demo-d map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-08-01"
+                        data-acquired-lte="2015-08-30">
+                        <p>August 2015</p>
+                    </section>
+
+                    <section class="map-demo-d map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-09-01"
+                        data-acquired-lte="2015-09-30">
+                        <p>September 2015</p>
+                    </section>
+                </section>
+
+                <!-- Demo 3 - drought - folsom lake -->
+                <section>
+                    <p>Application: Drought</p>
+                    <p>Folsom Lake</p>
+                    <p>(flood control, power, drinking water)</p>
+                </section>
+
+                <section id="map-demo-e-1">
+                    <section class="map-demo-e map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-02-01"
+                        data-acquired-lte="2015-02-28">
+                        <p>Feb 2015</p>
+                    </section>
+
+                    <section class="map-demo-e map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-03-01"
+l                       data-acquired-lte="2015-03-30">
+                        <p>Mar 2015</p>
+                    </section>
+
+                    <section class="map-demo-e map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-04-01"
+                        data-acquired-lte="2015-04-30">
+                        <p>Apr 2015</p>
+                    </section>
+
+                    <section class="map-demo-e map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-05-01"
+                        data-acquired-lte="2015-05-31">
+                        <p>May 2015</p>
+                    </section>
+
+                    <section class="map-demo-e map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-06-01"
+                        data-acquired-lte="2015-06-30">
+                        <p>Jun 2015</p>
+                    </section>
+
+                    <section class="map-demo-e map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-07-01"
+                        data-acquired-lte="2015-07-30">
+                        <p>Jul 2015</p>
+                    </section>
+
+                    <section class="map-demo-e map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-08-01"
+                        data-acquired-lte="2015-08-30">
+                        <p>Aug 2015</p>
+                    </section>
+
+                    <section class="map-demo-e map-demo-slide"
+                        data-style="rgb"
+                        data-acquired-gte="2015-09-01"
+                        data-acquired-lte="2015-09-22">
+                        <p>Sep 2015</p>
+                    </section>
+                </section>
+
+                <!-- Drought conclusion -->
+                <section>
+                    <h2>Data is Powerful</h2>
+                    <p class="fragment">One thing to read in the news</p>
+                    <p class="fragment">Another to have access to up to date imagery</p>
+                    <p class="fragment">AOIs + Events = real time updates</p>
+                </section>
+
+
+                <!-- Map Tile Summary -->
+                <section>
+                    <h2>Map Tile Service</h2>
+                    <p class="fragment">Foundation for mapping applications</p>
+                    <p class="fragment">Works on smart watches, phones, tablets, desktops, web</p>
+                    <p class="fragment">Flexible</p>
+                    <p class="fragment">Custom renderers = extremely powerful</p>
+                </section>
+
+                <!-- Conclusion -->
+                <section>
+                    <h2>Conclusion</h2>
+                    <p class="fragment">Urthecast APIs provide you with infrastructure to build custom mapping applications.</p>
+                    <p class="fragment">... and this is just the beginning.</p>
+                </section>
+
+                <section>
+                    <h2>Thanks</h2>
+                </section>
+
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+        <script src="lib/js/leaflet.js"></script>
+        <script src="lib/js/jquery-2.1.4.min.js"></script>
+        <script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+        </script>
+
+        <!-- Demo specific scripts -->
+        <script src="js/api-key.js"></script>
+        <script src="js/moment.min.js"></script>
+        <script src="js/map-demo.js"></script>
+        <script src="js/catalog-demo.js"></script>
+        <script src="js/sat-tracker-demo.js"></script>
+        <script src="js/events-demo.js"></script>
+        <script src="js/aoi-demo.js"></script>
+
+    </body>
+</html>

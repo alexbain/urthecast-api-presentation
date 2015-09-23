@@ -1,0 +1,106 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-image: url(../bg.jpg);
+  background-size: cover;
+}
+
+#map,
+#sat-imagery {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#sat-imagery {
+  -webkit-transition: background-image 0.75s ease-in-out;
+  transition: background-image 0.75s ease-in-out;
+}
+
+.hidden {
+  display: none;
+}
+
+.map-demo-slide p {
+  background: rgba(0, 0, 0, .5);
+  opacity: .75;
+}
+
+#explore-demo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 900;
+}
+
+#hide-explore {
+  position: absolute;
+  font-family: helvetica;
+  top: 10px;
+  left: 10px;
+  color: #fff;
+  z-index: 1000;
+}
+
+#api-key-secret-form {
+    margin: 40px 0;
+}
+
+#api-key,
+#api-secret {
+    font-size: 24px;
+    padding: 24px 68px;
+    width: 400px;
+}
+
+#api-key-and-secret-save {
+    border: 0;
+    color: #f63;
+    font-size: 20px;
+    border: 3px solid #ff6633;
+    background: transparent;
+    padding: 24px 68px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+#api-key-and-secret-save:hover {
+    background: #f63;
+    color: #fff;
+}
+
+.reveal section .leaflet-map-pane {
+    border: 1px solid #000;
+}
+.reveal section .leaflet-map-pane img {
+    margin: auto;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    max-height: inherit;
+}
+
+.code-block {
+    font-size: 18px;
+    min-height: 60px;
+}
+
+.code-block--big {
+    min-height: 150px;
+}
+
+input {
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 24px 68px;
+}
